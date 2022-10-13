@@ -30,4 +30,4 @@ class SpiderMan:
 
     if __name__ == '__main__':
         # print(InfoGatherer.easter_text_finder(LinkGatherer.page_text, LinkGatherer.page_text))
-        info_gatherer.text_filter(info_gatherer.easter_text_finder(LinkGatherer.page_text))
+        info_gatherer.carrot_text_filter(info_gatherer.easter_text_finder(LinkGatherer.page_text))

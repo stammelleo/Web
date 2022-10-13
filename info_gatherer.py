@@ -27,23 +27,36 @@ def easter_text_finder(page_text):
     return final_string
 
 
-def text_filter(text):
+def carrot_text_filter(text):
     index = 0
     # Create temporary list with chars to get rid of
     temp = string_to_list_convert(text)
+    print(temp)
+    temp2 = string_to_list_convert(text)
     start_range = 0
     # iterate through string removing non text
     for char in text:
         if char == '<' and start_range == 0:
             start_range = index
-        if char == '>':
+        if char == '>' and start_range != 0:
+
             print(len(temp))
+            print(text[start_range])
             print(text[index])
             print(f'The start range is {start_range} and the end range is {index}')
-            del (temp[start_range:index])
+
+            del (temp[start_range: index + 1])
+
+            # Recalculating index based on new length of set
+            index = index - ((index + 1) - start_range)
+            print(len(temp))
 
             start_range = 0
         index += 1
+
+    # temp 2 should be bigger than temp
+    print (len(temp2))
+    print(temp2)
     print(temp)
     print(len(temp))
     # iterate through what is left of string list and turn back into string
