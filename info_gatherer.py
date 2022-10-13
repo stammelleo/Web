@@ -6,15 +6,58 @@ import re
 from link_gatherer import *
 
 
-class InfoGatherer:
+def string_to_list_convert(text):
+    # Converts given string to list and returns list
+    temp_string = []
+    for character in text:
+        temp_string.append(character)
+    return temp_string
 
-    # Gather string surrounding word Easter
-    def easter_text_finder(self, page_text):
-        result = [_.start() for _ in re.finditer(' Easter ', page_text)]
-        for index in result:
-            print(page_text[index - 100: index + 100])
-            print('-' * 30)
-        result = [_.start() for _ in re.finditer(' easter ', page_text)]
-        for index in result:
-            print(page_text[index - 100: index + 100])
-            print('-' * 30)
+
+def easter_text_finder(page_text):
+    final_string = ''
+    result = [_.start() for _ in re.finditer(' Easter ', page_text)]
+    for index in result:
+        final_string += page_text[index - 100: index + 100]
+        print('-' * 30)
+    result = [_.start() for _ in re.finditer(' easter ', page_text)]
+    for index in result:
+        final_string += page_text[index - 100: index + 100]
+        print('-' * 30)
+    return final_string
+
+
+def text_filter(text):
+    index = 0
+    # Create temporary list with chars to get rid of
+    temp = string_to_list_convert(text)
+    start_range = 0
+    # iterate through string removing non text
+    for char in text:
+        if char == '<' and start_range == 0:
+            start_range = index
+        if char == '>':
+            print(len(temp))
+            print(text[index])
+            print(f'The start range is {start_range} and the end range is {index}')
+            del (temp[start_range:index])
+
+            start_range = 0
+        index += 1
+    print(temp)
+    print(len(temp))
+    # iterate through what is left of string list and turn back into string
+    # print(f'the text is {temp}')
+    # text = ''
+    # text.join(str(s) for s in temp)
+    # print (f'the text is now {text}')
+# class InfoGatherer:
+
+# Gather string surrounding word Easter
+
+
+# iterate through what is left of string list and turn back into string
+# print(f'the text is {temp}')
+# text = ''
+# text.join(str(s) for s in temp)
+# print (f'the text is now {text}')

@@ -3,8 +3,9 @@ from bs4 import BeautifulSoup
 from lxml import etree
 import requests
 import re
-from link_gatherer import *
-from info_gatherer import *
+
+from link_gatherer import LinkGatherer
+import info_gatherer
 
 
 # https://www.blog.datahut.co/post/how-to-build-a-web-crawler-from-scratch
@@ -28,4 +29,5 @@ class SpiderMan:
     # campbells = BeautifulSoup(page_text, 'lxml')
 
     if __name__ == '__main__':
-        InfoGatherer.easter_text_finder(LinkGatherer.page_text, LinkGatherer.page_text)
+        # print(InfoGatherer.easter_text_finder(LinkGatherer.page_text, LinkGatherer.page_text))
+        info_gatherer.text_filter(info_gatherer.easter_text_finder(LinkGatherer.page_text))
