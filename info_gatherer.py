@@ -1,10 +1,18 @@
-import scrapy
+#import scrapy
 from bs4 import BeautifulSoup
-from lxml import etree
+#from lxml import etree
 import requests
 import re
 from link_gatherer import *
 
+
+def text_gatherer(webpage):
+    '''Returns unfiltered text on webpage'''
+    webpage = 'https://callofduty.fandom.com/wiki/Easter_Eggs'
+    # webpage = 'https://en.wikipedia.org/wiki/Call_of_Duty'
+    page_info = requests.get(webpage)
+    page_text = page_info.text
+    return page_text
 
 def string_to_list_convert(text):
     # Converts given string to list and returns list
@@ -28,11 +36,11 @@ def easter_text_finder(page_text):
     final_string = ''
     result = [_.start() for _ in re.finditer(' Easter ', page_text)]
     for index in result:
-        final_string += page_text[index - 300: index + 500]
+        final_string += page_text[index - 400: index + 500]
         print('-' * 30)
     result = [_.start() for _ in re.finditer(' easter ', page_text)]
     for index in result:
-        final_string += page_text[index - 300: index + 500]
+        final_string += page_text[index - 400: index + 500]
         print('-' * 30)
     return final_string
 
