@@ -18,11 +18,14 @@ def equal_sign_fiter(text):
     '''This function takes a text parameter and removes text around = signs'''
     index = 0
     start_index = 0
+    original_index = 0
+    index_back = 0
     # Create temporary list with chars to get rid of
     temp = string_to_list_convert(text)
     # iterate through list of characters
     for char in text:
-        if char == '=' and index :
+        print(f'Index is currently {index} before anything')
+        if char == '=':
             #Check for starting index of equal string
 
             # if temp[index - 1] == ' ':
@@ -34,41 +37,55 @@ def equal_sign_fiter(text):
             if temp[index - 2] == ' ':
                 #Assign start index value, then increase index until end of string character > reached
                 start_index = index - 2
+                original_index = index
+                index_back = 2
                 while temp[index] != '>':
                     index = index + 1
 
             elif temp[index - 3] == ' ':
                 #Assign start index value, then increase index until end of string character > reached
                 start_index = index - 3
+                original_index = index
+                index_back = 3
                 while temp[index] != '>':
                     index = index + 1
 
             elif temp[index - 4] == ' ':
                 #Assign start index value, then increase index until end of string character > reached
                 start_index = index - 4
-                while temp[index] != '>':
+                original_index = index
+                index_back = 4
+                print(f'Index is {index} while length of temp is {len(temp)}')
+                print(f'temp is {temp[index-1]} {temp[index]} {temp[index+1]}')
+                while temp[index] != '>' and index < len(temp):
+                    print(f'Index is {index} while length of temp is {len(temp)}')
                     index = index + 1
 
             elif temp[index - 5] == ' ':
                 #Assign start index value, then increase index until end of string character > reached
                 start_index = index - 5
+                original_index = index
+                index_back = 5
                 while temp[index] != '>':
                     index = index + 1
 
             elif temp[index - 6] == ' ':
                 #Assign start index value, then increase index until end of string character > reached
                 start_index = index - 6
+                original_index = index
+                index_back = 6
                 while temp[index] != '>':
                     index = index + 1
 
             print(f'Start index is {start_index} end is {index + 1}')
+            print(f'Length of temp is {len(temp)}')
             del (temp[start_index: index + 1])
-            index = start_index + 1
+            print(f'New length of temp is {len(temp)}')
+            index = index - ((index+index_back) - original_index)
             print(index)
             print("Running")
 
             # Recalculating index based on new length of set
-            #index = index - 6
 
         index += 1
 
@@ -83,13 +100,11 @@ def html_syntx_filter(text):
         if char == '&':
             # Deleting <&#160;> from strings
             del (temp[index: index + 6])
-            print("Running")
 
             # Recalculating index based on new length of set
             index = index - 6
             start_range = 0
-            print(f"This is {index}")
-        print(index)
+
         index += 1
 
     return list_to_string_convert(temp)
