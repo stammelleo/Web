@@ -17,39 +17,60 @@ def text_gatherer(webpage):
 def equal_sign_fiter(text):
     '''This function takes a text parameter and removes text around = signs'''
     index = 0
-    index_minus_one = 0
-    index_minus_two = 0
-    index_minus_three = 0
-    index_minus_four = 0
-    index_minus_five = 0
-    index_minus_six = 0
+    start_index = 0
     # Create temporary list with chars to get rid of
     temp = string_to_list_convert(text)
     # iterate through list of characters
     for char in text:
-        if char == '=':
+        if char == '=' and index :
+            #Check for starting index of equal string
 
-            #del (temp[index: index + 6])
+            # if temp[index - 1] == ' ':
+            #     #Assign start index value, then increase index until end of string character > reached
+            #     start_index = index - 1
+            #     while temp[index] != '>':
+            #         index = index + 1
+
+            if temp[index - 2] == ' ':
+                #Assign start index value, then increase index until end of string character > reached
+                start_index = index - 2
+                while temp[index] != '>':
+                    index = index + 1
+
+            elif temp[index - 3] == ' ':
+                #Assign start index value, then increase index until end of string character > reached
+                start_index = index - 3
+                while temp[index] != '>':
+                    index = index + 1
+
+            elif temp[index - 4] == ' ':
+                #Assign start index value, then increase index until end of string character > reached
+                start_index = index - 4
+                while temp[index] != '>':
+                    index = index + 1
+
+            elif temp[index - 5] == ' ':
+                #Assign start index value, then increase index until end of string character > reached
+                start_index = index - 5
+                while temp[index] != '>':
+                    index = index + 1
+
+            elif temp[index - 6] == ' ':
+                #Assign start index value, then increase index until end of string character > reached
+                start_index = index - 6
+                while temp[index] != '>':
+                    index = index + 1
+
+            print(f'Start index is {start_index} end is {index + 1}')
+            del (temp[start_index: index + 1])
+            index = start_index + 1
+            print(index)
             print("Running")
 
             # Recalculating index based on new length of set
             #index = index - 6
 
-        #Keep a list of recently visited chars in order to find start, which is the space key before start of string
         index += 1
-        if index > 0:
-            index_minus_one = index - 1
-        if index > 2:
-            index_minus_two = index - 2
-        if index > 3:
-            index_minus_three = index - 3
-        if index > 4:
-            index_minus_four = index - 4
-        if index > 5:
-            index_minus_five = index - 5
-        if index > 6:
-            index_minus_six = index - 6
-
 
     return list_to_string_convert(temp)
 def html_syntx_filter(text):
