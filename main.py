@@ -32,6 +32,7 @@ class SpiderMan:
     if __name__ == '__main__':
         urls_to_visit = []
         # print(InfoGatherer.easter_text_finder(LinkGatherer.page_text, LinkGatherer.page_text))
-        print(info_gatherer.carrot_text_filter(info_gatherer.easter_text_finder(info_gatherer.text_gatherer(''))))
+        text1 = info_gatherer.carrot_text_filter(info_gatherer.easter_text_finder(info_gatherer.text_gatherer('')))
+        print(info_gatherer.html_syntx_filter(text1))
         link_gatherer.link_getter('https://callofduty.fandom.com/wiki/Easter_Eggs',urls_to_visit)
         print(urls_to_visit)
