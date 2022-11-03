@@ -17,15 +17,21 @@ def text_gatherer(webpage):
 def equal_sign_fiter(text):
     '''This function takes a text parameter and removes text around = signs'''
     index = 0
+    unchanged_index = 0
     start_index = 0
     original_index = 0
     index_back = 0
     # Create temporary list with chars to get rid of
     temp = string_to_list_convert(text)
     # iterate through list of characters
-    for char in text:
-        print(f'Index is currently {index} before anything')
+    for char in temp:
+        print (f'Char is {char} temp index is {temp[index]}')
+        #print (f'Space around tempchar is {temp[index-10:index+10]}')
+        #print(f'Index is currently {index} before anything')
         if char == '=':
+            # print (f'Char is {char} while temp index plus one char is {temp[index-1]}')
+            # print (char)
+            print (f'This should be equal sign every time ---> {temp[index]}')
             #Check for starting index of equal string
 
             # if temp[index - 1] == ' ':
@@ -55,10 +61,10 @@ def equal_sign_fiter(text):
                 start_index = index - 4
                 original_index = index
                 index_back = 4
-                print(f'Index is {index} while length of temp is {len(temp)}')
-                print(f'temp is {temp[index-1]} {temp[index]} {temp[index+1]}')
-                while temp[index] != '>' and index < len(temp):
-                    print(f'Index is {index} while length of temp is {len(temp)}')
+                #print(f'Index is {index} while length of temp is {len(temp)}')
+                #print(f'temp is {temp[index-1]} {temp[index]} {temp[index+1]}')
+                while temp[index] != '>':
+                    #print(f'Index is {index} while length of temp is {len(temp)}')
                     index = index + 1
 
             elif temp[index - 5] == ' ':
@@ -77,17 +83,24 @@ def equal_sign_fiter(text):
                 while temp[index] != '>':
                     index = index + 1
 
-            print(f'Start index is {start_index} end is {index + 1}')
-            print(f'Length of temp is {len(temp)}')
+            #print(f'Start index is {start_index} end is {index + 1}')
+            # print(f'Length of temp is {len(temp)}')
+            prev_length = len(temp)
             del (temp[start_index: index + 1])
-            print(f'New length of temp is {len(temp)}')
-            index = index - ((index+index_back) - original_index)
-            print(index)
-            print("Running")
+            length_diff = prev_length - len(temp)
+            print(f'Length difference is {length_diff}')
+            index = index + 2*index_back - ((index+index_back) - start_index)
+            #print(index)
+            #print("Running")
 
             # Recalculating index based on new length of set
 
+        if (730 < unchanged_index < 800):
+            print(f'{char},{temp[index]}')
+        unchanged_index += 1
         index += 1
+        #print(f'temp is {temp[index-5:index+10]}')
+        print(f'Unchanged index is {unchanged_index} while array index is {index}')
 
     return list_to_string_convert(temp)
 def html_syntx_filter(text):
