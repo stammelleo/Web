@@ -14,6 +14,30 @@ def text_gatherer(webpage):
     page_text = page_info.text
     return page_text
 
+def master_filter(url_link):
+    '''Calls all filters on incoming raw html, then returns completely filtered readable text'''
+    return double_space_filter(angle_bracket_filter(equal_sign_filter(html_syntx_filter(carrot_text_filter(easter_text_finder(
+            text_gatherer(url_link)))))))
+
+def double_space_filter(string):
+    '''Filters out double spaces from string parameter'''
+    index = 0
+    for char in string:
+        if char == ' ' and string[index + 1] == ' ':
+            string = string[:index] + string[index + 1:]
+            index -= 1
+        index += 1
+    return string
+
+def angle_bracket_filter(string):
+    '''Filters out > key from string parameter'''
+    index = 0
+    for char in string:
+        if char == '>':
+            string = string[:index] + string[index + 1:]
+            index -= 1
+        index += 1
+    return string
 
 def equal_sign_filter_process(text):
     '''This function takes a text parameter and removes text around = signs'''
@@ -31,12 +55,12 @@ def equal_sign_filter_process(text):
             while num_quotes < 2:
                 if text[index] == '"':
                     num_quotes += 1
+                    if num_quotes == 2:
+                        end_index = index
+                        return text[:start_index + 1] + text[end_index + 1:]
                 index += 1
-            end_index = index
         index += 1
-    print(text[start_index:end_index+1])
-    print('----------------------------')
-    return text[:start_index] + text[end_index + 1:]
+
 def string_has_equal_sign(raw_string):
     for char in raw_string:
         if char == '=':
@@ -94,11 +118,11 @@ def easter_text_finder(page_text):
     result = [_.start() for _ in re.finditer(' Easter ', page_text)]
     for index in result:
         final_string += page_text[index - 600: index + 500]
-        print('-' * 30)
+
     result = [_.start() for _ in re.finditer(' easter ', page_text)]
     for index in result:
         final_string += page_text[index - 600: index + 500]
-        print('-' * 30)
+
     return final_string
 
 
