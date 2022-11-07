@@ -119,16 +119,35 @@ def list_to_string_convert(bucket):
 
 
 def easter_text_finder(page_text):
-    '''Searches through text, Finding text around words Easter and easter'''
+    '''Searches through text, Finding first occurance and final occurance of Easter or easter, then gathers all text
+        between those occurances'''
     final_string = ''
+    counter = 0
+    absolute_lowest_index = 0
+    absolute_highest_index = 0
     result = [_.start() for _ in re.finditer(' Easter ', page_text)]
     for index in result:
-        final_string += page_text[index - 300: index + 300]
+        if (counter == 0):
+            absolute_lowest_index = index
+            absolute_highest_index = index
+        if (index > absolute_highest_index):
+            highest_index = index
+        counter += 1
 
+    counter = 0
     result = [_.start() for _ in re.finditer(' easter ', page_text)]
     for index in result:
-        final_string += page_text[index - 300: index + 300]
+        if (counter == 0 and index < absolute_lowest_index):
+            absolute_lowest_index = index
+        if (index > absolute_highest_index):
+            absolute_highest_index = index
+        counter += 1
 
+    #Gets closer to edge of text based on earliest and latest occurance of Easter or easter
+    a_lowest_fraction = int(absolute_lowest_index - absolute_lowest_index*.97)
+    a_highest_fraction = int(absolute_highest_index + absolute_highest_index/4)
+
+    final_string += page_text[a_lowest_fraction:a_highest_fraction]
     return final_string
 
 #MAKE FUNCTION THAT LOOKS FOR EASTER STRING ON WEBPAGE AND IF IT DOES (MAYBE OVER CERTAIN LIKE 10 OCCURENCES SO
