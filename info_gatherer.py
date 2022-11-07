@@ -8,7 +8,6 @@ from link_gatherer import *
 
 def text_gatherer(webpage):
     '''Returns unfiltered text on webpage'''
-    webpage = 'https://callofduty.fandom.com/wiki/Easter_Eggs'
     # webpage = 'https://en.wikipedia.org/wiki/Call_of_Duty'
     page_info = requests.get(webpage)
     page_text = page_info.text
@@ -16,8 +15,13 @@ def text_gatherer(webpage):
 
 def master_filter(url_link):
     '''Calls all filters on incoming raw html, then returns completely filtered readable text'''
-    return double_space_filter(angle_bracket_filter(equal_sign_filter(html_syntx_filter(carrot_text_filter(easter_text_finder(
-            text_gatherer(url_link)))))))
+    return easter_text_finder(double_space_filter(angle_bracket_filter(equal_sign_filter(html_syntx_filter(carrot_text_filter(
+             text_gatherer(url_link)))))))
+    # return trim_raw_text(double_space_filter(angle_bracket_filter(equal_sign_filter(html_syntx_filter(carrot_text_filter(
+    #     text_gatherer(url_link)))))))
+
+def trim_raw_text(raw_text):
+    return raw_text[5500:len(raw_text) - 4500]
 
 def double_space_filter(string):
     '''Filters out double spaces from string parameter'''
@@ -49,9 +53,10 @@ def equal_sign_filter_process(text):
 
         if char == '=':
             start_index = index
+            #Searches spots next to equal sign until it find a space, then set start index
             while text[start_index] != ' ':
                 start_index -= 1
-
+            #Once the second quote had been reached, set end index and return string with chunk taken out
             while num_quotes < 2:
                 if text[index] == '"':
                     num_quotes += 1
@@ -62,12 +67,14 @@ def equal_sign_filter_process(text):
         index += 1
 
 def string_has_equal_sign(raw_string):
+    '''Checks if string has equal sign. Returns True if it does'''
     for char in raw_string:
         if char == '=':
             return True
     return False
 
 def equal_sign_filter(raw_text):
+    '''Calls equal sign filter repeatedly on text unitl there are none left'''
     while string_has_equal_sign(raw_text):
         raw_text = equal_sign_filter_process(raw_text)
     return raw_text
@@ -95,7 +102,6 @@ def html_syntx_filter(text):
 def string_to_list_convert(text):
     '''Converts string parameter to a list'''
     # Converts given string to list and returns list
-
     temp_string = []
     for character in text:
         temp_string.append(character)
@@ -117,13 +123,16 @@ def easter_text_finder(page_text):
     final_string = ''
     result = [_.start() for _ in re.finditer(' Easter ', page_text)]
     for index in result:
-        final_string += page_text[index - 600: index + 500]
+        final_string += page_text[index - 300: index + 300]
 
     result = [_.start() for _ in re.finditer(' easter ', page_text)]
     for index in result:
-        final_string += page_text[index - 600: index + 500]
+        final_string += page_text[index - 300: index + 300]
 
     return final_string
+
+#MAKE FUNCTION THAT LOOKS FOR EASTER STRING ON WEBPAGE AND IF IT DOES (MAYBE OVER CERTAIN LIKE 10 OCCURENCES SO
+# YOU DONT GET UNWANTED PAGES) THEN FILTER THROUGH TEXT
 
 
 def carrot_text_filter(text):

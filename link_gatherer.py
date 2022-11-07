@@ -18,5 +18,6 @@ def link_getter(webpage,urls_to_visit):
 
     return urls_to_visit
 
+
 class LinkGatherer:
     urls_to_visit = []

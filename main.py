@@ -30,16 +30,8 @@ class SpiderMan:
     # campbells = BeautifulSoup(page_text, 'lxml')
 
     if __name__ == '__main__':
-        print(info_gatherer.master_filter('https://callofduty.fandom.com/wiki/Easter_Eggs'))
-        #0123lmnopqrststuff
-        #Look for equal sign
-        #When found, increment to left until space is discovered, call this left slice index
-        #Increment pointer to right until right angle bracket is discovered
-        #Mark this as right slice index
-        #New string = old string[:leftIndex] + old string[rightindex+1:]
-
-
-        #print(info_gatherer.equal_sign_fiter('dying from the time limit iw-disambig"say either'))
-
+        urls_to_visit = []
+        print (info_gatherer.trim_raw_text(info_gatherer.master_filter('https://callofduty.fandom.com/wiki/Easter_Eggs')))
+        #print (info_gatherer.trim_raw_text(info_gatherer.master_filter('https://callofduty.fandom.com/wiki/Wonder_Weapons')))
         link_gatherer.link_getter('https://callofduty.fandom.com/wiki/Easter_Eggs',urls_to_visit)
-        # print(urls_to_visit)
+
