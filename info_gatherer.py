@@ -8,7 +8,6 @@ from link_gatherer import *
 
 def text_gatherer(webpage):
     '''Returns unfiltered text on webpage'''
-    # webpage = 'https://en.wikipedia.org/wiki/Call_of_Duty'
     page_info = requests.get(webpage)
     page_text = page_info.text
     return page_text
@@ -79,7 +78,6 @@ def equal_sign_filter(raw_text):
         raw_text = equal_sign_filter_process(raw_text)
     return raw_text
 
-
 def html_syntx_filter(text):
     '''Takes a string parameter and returns that string with &#160; stripped'''
     index = 0
@@ -117,41 +115,41 @@ def list_to_string_convert(bucket):
     return r_string
 
 
-
+#I got the easter word finder loop from https://www.delftstack.com/howto/python/python-find-all-occurrences-in-string/
 def easter_text_finder(page_text):
-    '''Searches through text, Finding first occurance and final occurance of Easter or easter, then gathers all text
+    '''Searches through text, finding first occurance and final occurance of Easter or easter, then gathers all text
         between those occurances'''
     final_string = ''
     counter = 0
     absolute_lowest_index = 0
     absolute_highest_index = 0
-    result = [_.start() for _ in re.finditer(' Easter ', page_text)]
-    for index in result:
-        if (counter == 0):
-            absolute_lowest_index = index
-            absolute_highest_index = index
-        if (index > absolute_highest_index):
-            highest_index = index
-        counter += 1
+    uppercase_result = [_.start() for _ in re.finditer(' Easter ', page_text)]
+    lowercase_result = [_.start() for _ in re.finditer(' easter ', page_text)]
+    #If the words easter and Easter appear ten or more times, take page info
+    if (len(uppercase_result) + len(lowercase_result) >= 10):
+        for index in uppercase_result:
+            if (counter == 0):
+                absolute_lowest_index = index
+                absolute_highest_index = index
+            if (index > absolute_highest_index):
+                highest_index = index
+            counter += 1
 
-    counter = 0
-    result = [_.start() for _ in re.finditer(' easter ', page_text)]
-    for index in result:
-        if (counter == 0 and index < absolute_lowest_index):
-            absolute_lowest_index = index
-        if (index > absolute_highest_index):
-            absolute_highest_index = index
-        counter += 1
-
-    #Gets closer to edge of text based on earliest and latest occurance of Easter or easter
+        counter = 0
+        for index in lowercase_result:
+            if (counter == 0 and index < absolute_lowest_index):
+                absolute_lowest_index = index
+            if (index > absolute_highest_index):
+                absolute_highest_index = index
+            counter += 1
+    #If keywords did not show up enough, return empty string
+    else: return ''
+    #Gets closer to top and bottom of text based on earliest and latest occurance of Easter and easter, then returns
+    #all text between the two points
     a_lowest_fraction = int(absolute_lowest_index - absolute_lowest_index*.97)
     a_highest_fraction = int(absolute_highest_index + absolute_highest_index/4)
-
     final_string += page_text[a_lowest_fraction:a_highest_fraction]
     return final_string
-
-#MAKE FUNCTION THAT LOOKS FOR EASTER STRING ON WEBPAGE AND IF IT DOES (MAYBE OVER CERTAIN LIKE 10 OCCURENCES SO
-# YOU DONT GET UNWANTED PAGES) THEN FILTER THROUGH TEXT
 
 
 def carrot_text_filter(text):
