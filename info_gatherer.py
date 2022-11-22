@@ -1,6 +1,4 @@
-#import scrapy
 from bs4 import BeautifulSoup
-#from lxml import etree
 import requests
 import re
 from link_gatherer import *

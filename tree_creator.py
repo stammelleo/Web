@@ -1,5 +1,12 @@
 # https://www.youtube.com/watch?v=4r_XR9fUPhQ
 
+def add_all_childen(parent,list_of_children):
+    '''Adds all links on page as children of parent'''
+    for child in list_of_children:
+        tree_child = TreeNode(child)
+        parent.add_child(tree_child)
+        tree_child.parent = parent
+    TreeNode.print_tree(parent)
 
 
 class TreeNode:
@@ -26,5 +33,6 @@ class TreeNode:
 
 
         root.add_child(cod_links)
+
 
         return root

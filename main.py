@@ -1,7 +1,6 @@
 #import scrapy
 import link_gatherer
 import tree_creator
-import tree_creator
 from bs4 import BeautifulSoup
 #from lxml import etree
 import requests
@@ -21,8 +20,9 @@ class SpiderMan:
         #print (info_gatherer.trim_raw_text(info_gatherer.master_filter('https://callofduty.fandom.com/wiki/Wonder_Weapons')))
         link_gatherer.link_getter('https://callofduty.fandom.com/wiki/Easter_Eggs',urls_to_visit)
 
-        root_node = tree_creator.TreeNode("Links")
+        cod_root_node = tree_creator.TreeNode("https://callofduty.fandom.com/wiki/Easter_Eggs")
 
-        tree_creator.TreeNode.print_tree(root_node.build_initial_tree())
+        tree_creator.add_all_childen(cod_root_node,urls_to_visit)
+        # tree_creator.TreeNode.print_tree(cod_root_node.build_initial_tree())
 
 
