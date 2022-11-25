@@ -14,10 +14,12 @@ def link_getter(webpage,urls_to_visit):
     for link in soup.find_all('a'):
         # Get potential link and check start of string for h in http and if found, add to link array
         maybe_link = link.get('href')
-        if maybe_link != None:
+        if maybe_link != None and len(maybe_link) != 0:
             if maybe_link[0] == 'h':
                 urls_to_visit.append(link.get('href'))
-
+                # *********TEST CODE - TEMPORARILY LIMIT SIZE OF URLS TO VISTS**********
+                if len(urls_to_visit) > 3:
+                    return urls_to_visit
     return urls_to_visit
 
 def link_trasher(url_input,visted_urls):
@@ -38,5 +40,5 @@ def duplicate_link_checker(visited_urls,url_to_visit):
             visited_urls.append(url)
 
 
-class LinkGatherer:
-    urls_to_visit = []
+# class LinkGatherer:
+#     urls_to_visit = []
