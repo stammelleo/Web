@@ -40,6 +40,7 @@ class TreeNode:
         self.children.append(child)
 
     def print_tree(self):
+        '''Prints parent node and immediate children'''
         print(self.name)
         integer = 0
         for child in self.children:
