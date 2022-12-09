@@ -18,7 +18,7 @@ def link_getter(webpage,urls_to_visit):
             if maybe_link[0] == 'h':
                 urls_to_visit.append(link.get('href'))
                 # *********TEST CODE - TEMPORARILY LIMIT SIZE OF URLS TO VISTS**********
-                if len(urls_to_visit) > 3:
+                if len(urls_to_visit) > 100:
                     return urls_to_visit
     return urls_to_visit
 
