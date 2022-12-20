@@ -123,8 +123,8 @@ def easter_text_finder(page_text):
     absolute_highest_index = 0
     uppercase_result = [_.start() for _ in re.finditer(' Easter ', page_text)]
     lowercase_result = [_.start() for _ in re.finditer(' easter ', page_text)]
-    #If the words easter and Easter appear ten or more times, take page info
-    if (len(uppercase_result) + len(lowercase_result) >= 10):
+    #If the words easter and Easter appear two or more times, take page info
+    if (len(uppercase_result) + len(lowercase_result) >= 2):
         for index in uppercase_result:
             if (counter == 0):
                 absolute_lowest_index = index
@@ -173,13 +173,3 @@ def carrot_text_filter(text):
 
     return list_to_string_convert(temp)
 
-# class InfoGatherer:
-
-# Gather string surrounding word Easter
-
-
-# iterate through what is left of string list and turn back into string
-# print(f'the text is {temp}')
-# text = ''
-# text.join(str(s) for s in temp)
-# print (f'the text is now {text}')

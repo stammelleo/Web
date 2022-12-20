@@ -19,10 +19,10 @@ def add_all_childen(parent,list_of_children,depth_count):
         # Make duplicate list of children to manipulate to avoid errors in future for loops
         variable_list_of_children = make_duplicate_list(list_of_children)
 
-        # If link is already another node's child, get rid of it, else add to list of nodes collected
+        # If link is already nodes children, get rid of it, else add to list of nodes collected
         for child in variable_list_of_children:
             counter += 1
-            if depth_count != 3 and link_already_gathered(child):
+            if depth_count != 4 and link_already_gathered(child):
                 list_of_children.remove(child)
             else:
                 links_gathered.append(child)
@@ -82,15 +82,3 @@ class TreeNode:
             integer += 1
             print(child.name)
 
-
-    def build_initial_tree(self):
-        '''Builds starting link tree with games as child nodes'''
-        root = self
-
-        cod_links = TreeNode("CODLinks")
-
-
-        root.add_child(cod_links)
-
-
-        return root
